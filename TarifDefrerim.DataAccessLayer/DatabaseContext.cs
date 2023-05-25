@@ -21,5 +21,6 @@ namespace TarifDefrerim.DataAccessLayer
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Liked> Likeds { get; set; }
 
+
     }
 }
