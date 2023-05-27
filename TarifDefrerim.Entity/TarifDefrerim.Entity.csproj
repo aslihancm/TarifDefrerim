@@ -47,6 +47,8 @@
     <Compile Include="MyEntityBase.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequiredAttribute.cs" />
+    <Compile Include="StringLengthAttribute.cs" />
     <Compile Include="TarifUser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
