@@ -8,7 +8,10 @@ namespace TarifDefrerim.Entity
 {
     public class Note:MyEntityBase
     {
+        [Required,StringLength(50)]
         public string Name { get; set; }
+        [Required, StringLength(2000)]
+
         public string Text { get; set; }
         public bool IsDraft { get; set; }
         public int LikeCount { get; set; }

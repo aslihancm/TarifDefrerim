@@ -8,12 +8,12 @@ using TarifDefrerim.Entity;
 
 namespace TarifDefrerim.DataAccessLayer
 {
-    internal class DatabaseContext:DbContext
+    public class DatabaseContext:DbContext
     {
 
         public DatabaseContext():base("NOTESQL")
         {
-
+            Database.SetInitializer(new MyInitializer());
         }
         public DbSet<TarifUser> Users { get; set; }
         public DbSet<Note> Note { get; set; }
