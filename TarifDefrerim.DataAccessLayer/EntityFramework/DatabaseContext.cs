@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TarifDefrerim.Entity;
 
-namespace TarifDefrerim.DataAccessLayer
+namespace TarifDefrerim.DataAccessLayer.EntityFramework
 {
     public class DatabaseContext:DbContext
     {

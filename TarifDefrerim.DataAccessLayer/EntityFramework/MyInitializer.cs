@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TarifDefrerim.Entity;
 
-namespace TarifDefrerim.DataAccessLayer
+namespace TarifDefrerim.DataAccessLayer.EntityFramework
 {
-    internal class MyInitializer:CreateDatabaseIfNotExists<DatabaseContext>
+    public class MyInitializer:CreateDatabaseIfNotExists<DatabaseContext>
     {
 
         protected override void Seed(DatabaseContext context)
