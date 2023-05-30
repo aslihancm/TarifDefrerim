@@ -1,6 +1,9 @@
-﻿
+﻿@using TarifDefrerim.BusinessLayer
 @{
     ViewBag.Title = "Index";
+
+    CategoryManager categoryManager = new CategoryManager();
+    List<TarifDefrerim.Entity.Category> categories = categoryManager.Liste();
 }
 
 <div class="container">
@@ -10,15 +13,15 @@
         <div class="col-md-3">
             <p class="lead">Tarif Defterim</p>
             <div class="list-group">
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Ana Yemek</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Zeytinyağlı</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Çorba</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Pilav ve Makarna</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Salata ve Meze</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Tatlı</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Kurabiye</a>
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Diyet</a>
+                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Tümü</a>
 
+                @foreach (var item in categories)
+                {
+                    <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>@item.Title</a>
+                }
+
+
+            
 
 
             </div>
