@@ -1,9 +1,8 @@
-﻿@using TarifDefrerim.BusinessLayer
+﻿@using TarifDefrerim.Entity
+@model List<Note>
 @{
     ViewBag.Title = "Index";
 
-    CategoryManager categoryManager = new CategoryManager();
-    List<TarifDefrerim.Entity.Category> categories = categoryManager.Liste();
 }
 
 <div class="container">
@@ -11,20 +10,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Tarif Defterim</p>
-            <div class="list-group">
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>Tümü</a>
-
-                @foreach (var item in categories)
-                {
-                    <a href="#" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span>@item.Title</a>
-                }
-
-
-            
-
-
-            </div>
+           @Html.Partial("_PartialCategories")
         </div>
 
         <div class="col-md-9">
@@ -62,185 +48,52 @@
 
             <div class="row">
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
+                @foreach (var note in Model)
+                {
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="http://placehold.it/320x150" alt="">
+                            <div class="caption">
+                                <h6 class="text-right">
+                                    <span class="glyphicon glyphicon-time">@note.ModifiedOn.ToString("dd.MM.yy")</span>
+                                </h6>
 
-                            <h4 >Kremalı Mantar Çorbası</h4>
-                           
-                            <p>Ana vatanı Portekiz olan mantar, ülkemizde en çok Antalya'da yetiştirilir. </p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
+                                <h4><font color="#ff0000">@note.Name</font></h4>
+
+
+                                @if (note.Text.Length > 60 && string.IsNullOrEmpty(note.Text) == false)
+                                {
+
+                                    <p>  @(note.Text.Substring(0,60)+"...")</p>
+                                    <p class=" pull-right"><a href="#" class="btn btn-default btn-sm">Devam<span class="glyphicon glyphicons-chevron-right"></span></a></p>
+
+                                }
+                                else
+                                {
+                                    <p> @note.Text </p>
+                                }
+
+                            </div>
+                            <div>
+                                <hr />
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right">
+                                    <button class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-comment"></span> Yorumlar
+                                    </button>
+                                </p>
+                                <p>
+                                    <button class="btn btn-default btn-sm" type="button">
+                                        <span class="glyphicon glyphicon-star-empty"></span> @note.LikeCount
+                                    </button>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
-
-                            <h4>Sit amet, consectetur</h4>
-
-                            <p>See more snippets like this online store item at</p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
-
-                            <h4>Sit amet, consectetur</h4>
-
-                            <p>See more snippets like this online store item at</p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
-
-                            <h4>Sit amet, consectetur</h4>
-
-                            <p>See more snippets like this online store item at</p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
-
-                            <h4>Sit amet, consectetur</h4>
-
-                            <p>See more snippets like this online store item at</p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="http://placehold.it/320x150" alt="">
-                        <div class="caption">
-                            <h6 class="text-right">
-                                <span class="glyphicon glyphicon-time">01.01.2013 12:10</span>
-                            </h6>
-
-                            <h4>Sit amet, consectetur</h4>
-
-                            <p>See more snippets like this online store item at</p>
-                        </div>
-                        <div>
-                            <hr />
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">
-                                <button class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-comment"></span> Yorumlar
-                                </button>
-                            </p>
-                            <p>
-                                <button class="btn btn-default btn-sm" type="button">
-                                    <span class="glyphicon glyphicon-star-empty"></span> 15
-                                </button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+               
 
             </div>
 

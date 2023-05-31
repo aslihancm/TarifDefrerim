@@ -32,7 +32,7 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
         {
             return _objectSet.ToList();
         }
-        //public List<T> List(Exception<Func<T,bool>> filter)
+        //public List<T> List(Exception<Func<T, bool>> filter)
         //{
         //    return _objectSet.Where(filter).ToList();
         //}

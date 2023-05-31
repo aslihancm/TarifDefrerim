@@ -1,0 +1,19 @@
+﻿@using TarifDefrerim.BusinessLayer;
+@using TarifDefrerim.Entity;
+@{
+
+    CategoryManager cm = new CategoryManager();
+    List<Category> categories = cm.GetCategories();
+}
+
+
+<p class="lead">Tarif Defterim</p>
+<div class="list-group">
+    <a href="@Url.Action("Index","Home")" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span><font color="#ff0000">Tümü</font></a>
+
+    @foreach (var item in categories)
+    {
+        <a href="/Home/ByCategory/@item.Id" class="list-group-item"><span class="glyphicon glyphicon-arrow-right"></span><font color="#ff0000">@item.Title</font></a>
+    }
+
+</div>

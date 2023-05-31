@@ -13,9 +13,14 @@ namespace TarifDefrerim.BusinessLayer
         Repository<Category> repo = new Repository<Category>();
 
         public
-             List<Category> Liste()
+             List<Category> GetCategories()
             {
             return repo.List();
             }
+
+        public Category GetCategoryById(int id)
+        {
+            return repo.Find(i =>i.Id==id);
+        }
     }
 }
