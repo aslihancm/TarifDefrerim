@@ -16,5 +16,10 @@ namespace TarifDefrerim.BusinessLayer
         {
         return repo.List();
         }
+
+        public IQueryable<Note> GetAllNoteQueryable()
+        {
+            return repo.ListQueryable();
+        }
     }
 }

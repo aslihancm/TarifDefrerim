@@ -15,7 +15,7 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
     {
         //private DatabaseContext db = new DatabaseContext(); //Singleton Pattern
 
-        private DatabaseContext db;
+       // private DatabaseContext db;
         private DbSet<T> _objectSet;
         public Repository()
         {
@@ -31,6 +31,11 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
         public List<T> List()
         {
             return _objectSet.ToList();
+        }
+
+        public IQueryable<T> ListQueryable()
+        {
+            return _objectSet.AsQueryable<T>();
         }
         //public List<T> List(Exception<Func<T, bool>> filter)
         //{
