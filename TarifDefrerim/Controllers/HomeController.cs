@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TarifDefrerim.BusinessLayer;
 using TarifDefrerim.Entity;
+using TarifDefrerim.Models;
 
 namespace TarifDefrerim.Controllers
 {
@@ -48,7 +49,22 @@ namespace TarifDefrerim.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login(LoginViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+
+            }
+            return View(model);
+        }
         public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(RegisterViewModel model)
         {
             return View();
         }
