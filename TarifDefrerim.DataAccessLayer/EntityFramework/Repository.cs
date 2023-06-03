@@ -37,14 +37,14 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
         {
             return _objectSet.AsQueryable<T>();
         }
-        //public List<T> List(Exception<Func<T, bool>> filter)
-        //{
-        //    return _objectSet.Where(filter).ToList();
-        //}
-        public T Find(Exception<Func<T, bool>> filter)
+        public List<T> List(Expression<Func<T, bool>> filter)
         {
-            return _objectSet.Find(filter);
-            //return _objectSet.FirstOrDefault(filter); diyebiliriz.
+            return _objectSet.Where(filter).ToList();
+        }
+        public T Find(Expression<Func<T, bool>> filter)
+        {
+            //return _objectSet.Find(filter);
+            return _objectSet.FirstOrDefault(filter); //diyebiliriz.
         }
 
         public int Insert(T obj)
@@ -68,14 +68,5 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
             return db.SaveChanges();
         }
 
-        public List<T> List(Expression<Func<T, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Find(Expression<Func<T, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
