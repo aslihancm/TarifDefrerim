@@ -44,7 +44,7 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
         public T Find(Expression<Func<T, bool>> filter)
         {
             //return _objectSet.Find(filter);
-            return _objectSet.FirstOrDefault(filter); //diyebiliriz.
+            return _objectSet.FirstOrDefault(filter); 
         }
 
         public int Insert(T obj)
