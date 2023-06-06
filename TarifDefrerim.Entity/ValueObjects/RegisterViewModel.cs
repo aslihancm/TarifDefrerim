@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
-namespace TarifDefrerim.Models
+namespace TarifDefrerim.Entity.ValueObjects
 {
     public class RegisterViewModel
     {

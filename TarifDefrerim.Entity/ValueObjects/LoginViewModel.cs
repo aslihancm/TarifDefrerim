@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
 
-namespace TarifDefrerim.Models
+namespace TarifDefrerim.Entity.ValueObjects
 {
     public class LoginViewModel
     {

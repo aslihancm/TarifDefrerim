@@ -6,7 +6,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TarifDefrerim.BusinessLayer;
 using TarifDefrerim.Entity;
-using TarifDefrerim.Models;
+using TarifDefrerim.Entity.ValueObjects;
+
 
 namespace TarifDefrerim.Controllers
 {
@@ -51,6 +52,7 @@ namespace TarifDefrerim.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             if(ModelState.IsValid)
@@ -64,7 +66,30 @@ namespace TarifDefrerim.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
+
+        {
+            if (ModelState.IsValid)
+            {
+                TarifUserManager tarifUserManager = new TarifUserManager();
+                TarifUser user = null;
+                try
+                {
+                    user = tarifUserManager.RegisterUser(model);
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(model);
+        }
+        public ActionResult RegisterOk()
+        {
+            return View();
+        }
+        public ActionResult UserActivate(Guid activate_id)
         {
             return View();
         }
