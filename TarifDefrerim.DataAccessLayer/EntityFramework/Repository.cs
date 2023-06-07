@@ -50,6 +50,16 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
         public int Insert(T obj)
         {
             _objectSet.Add(obj);
+
+            if(obj is MyEntityBase)
+            {
+                MyEntityBase o = obj as MyEntityBase;
+                DateTime now = DateTime.Now;
+
+                o.CreatedOn = now;
+                o.ModifiedOn = now;
+                o.ModifiedUsername = "system";
+            }
             return Save();
         }
         public int Update(T obj)

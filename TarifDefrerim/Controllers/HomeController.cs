@@ -16,6 +16,7 @@ namespace TarifDefrerim.Controllers
 
         private NoteManager noteManager = new NoteManager();
         private CategoryManager categoryManager = new CategoryManager();
+        private TarifUserManager tarifuserManager = new TarifUserManager();
         // GET: Home
         public ActionResult Index()
         {
@@ -57,7 +58,14 @@ namespace TarifDefrerim.Controllers
         {
             if(ModelState.IsValid)
             {
-
+                BusinessLayerResult<TarifUser> res = tarifuserManager.LoginUser(model);
+                if(res.Errors.Count>0)
+                {
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x));
+                    return View(model);
+                }
+                Session["login"] = res.result;
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -72,16 +80,13 @@ namespace TarifDefrerim.Controllers
         {
             if (ModelState.IsValid)
             {
-                TarifUserManager tarifUserManager = new TarifUserManager();
-                TarifUser user = null;
-                try
+                BusinessLayerResult<TarifUser> res = tarifuserManager.RegisterUser(model);
+                if(res.Errors.Count>0)
                 {
-                    user = tarifUserManager.RegisterUser(model);
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x));
+                    return View(model);
                 }
-                catch(Exception ex)
-                {
-                    ModelState.AddModelError("", ex.Message);
-                }
+                return View("RegisterOk");
             }
             return View(model);
         }

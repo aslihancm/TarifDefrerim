@@ -15,17 +15,61 @@ namespace TarifDefrerim.BusinessLayer
     {
 
         private Repository<TarifUser> repo = new Repository<TarifUser>();
-        public TarifUser RegisterUser(RegisterViewModel data)
+        public BusinessLayerResult <TarifUser>RegisterUser(RegisterViewModel data)
         {
             TarifUser user = repo.Find(x => x.Username == data.Username || x.Email == data.Email);
 
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
             if(user != null)
             {
-                throw new Exception("Kayıtlı kullanıcı adı yada email adresi");
+                if(user.Username==data.Username)
+                {
+                    layerResult.Errors.Add("Kullanıcı adı kayıtlı");
+                }
+                if(user.Email==data.Email)
+                {
+                    layerResult.Errors.Add("Email adresi kayıtlı");
+                }
+               
             }
-            return user;
+            else
+            {
+                int dbResult = repo.Insert(new TarifUser()
+                {
+                    Username=data.Username,
+                    Email=data.Email,
+                    Password=data.Password,
+                    ActivateGuid=Guid.NewGuid(),
+                    IsActive=false,
+                    IsAdmin=false
+                });
+                if(dbResult>0)
+                {
+                    res.result = repo.Find(x => x.Email == data.Email && x.Username == data.Username);
+                }
+            }
+            return res;
         }
 
+        public BusinessLayerResult<TarifUser>LoginUser(LoginViewModel data)
+        {
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
+            res.result = repo.Find(x => x.Email == data.Email && x.Password == data.Password);
+
+            if(res.result!= null)
+            {
+                if(!res.result.IsActive)
+                {
+                    res.Errors.Add("Kullanıcı aktifleştirilmemiştir.Lütfen email adresinizi kontrol ediniz");
+
+                }
+            }
+            else
+            {
+                res.Errors.Add("Email yada şifre uyuşmuyor");
+            }
+            return res;
+        }
        
         
     }
