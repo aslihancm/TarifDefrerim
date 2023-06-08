@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using TarifDefrerim.BusinessLayer;
 using TarifDefrerim.Entity;
+using TarifDefrerim.Entity.Messages;
 using TarifDefrerim.Entity.ValueObjects;
 
 
@@ -61,7 +62,11 @@ namespace TarifDefrerim.Controllers
                 BusinessLayerResult<TarifUser> res = tarifuserManager.LoginUser(model);
                 if(res.Errors.Count>0)
                 {
-                    res.Errors.ForEach(x => ModelState.AddModelError("", x));
+                    if(res.Errors.Find(x=>x.Code==ErrorMessageCode.UserIsNotActive)!=null)
+                    {
+                        ViewBag.SetLink = "http";
+                    }
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
                 Session["login"] = res.result;
@@ -83,7 +88,7 @@ namespace TarifDefrerim.Controllers
                 BusinessLayerResult<TarifUser> res = tarifuserManager.RegisterUser(model);
                 if(res.Errors.Count>0)
                 {
-                    res.Errors.ForEach(x => ModelState.AddModelError("", x));
+                    res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
                 return View("RegisterOk");
@@ -100,7 +105,8 @@ namespace TarifDefrerim.Controllers
         }
         public ActionResult Logout()
         {
-            return View();
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

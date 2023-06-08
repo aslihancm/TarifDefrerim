@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TarifDefrerim.DataAccessLayer.EntityFramework;
 using TarifDefrerim.Entity;
+using TarifDefrerim.Entity.Messages;
 using TarifDefrerim.Entity.ValueObjects;
 
 
@@ -24,11 +25,11 @@ namespace TarifDefrerim.BusinessLayer
             {
                 if(user.Username==data.Username)
                 {
-                    layerResult.Errors.Add("Kullanıcı adı kayıtlı");
+                    res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kullanıcı adı kayıtlı");
                 }
                 if(user.Email==data.Email)
                 {
-                    layerResult.Errors.Add("Email adresi kayıtlı");
+                    res.AddError(ErrorMessageCode.EmailAlreadyExists,"Email adresi kayıtlı");
                 }
                
             }
@@ -60,13 +61,13 @@ namespace TarifDefrerim.BusinessLayer
             {
                 if(!res.result.IsActive)
                 {
-                    res.Errors.Add("Kullanıcı aktifleştirilmemiştir.Lütfen email adresinizi kontrol ediniz");
+                    res.AddError(ErrorMessageCode.UserIsNotActive,"Kullanıcı aktifleştirilmemiştir.Lütfen email adresinizi kontrol ediniz");
 
                 }
             }
             else
             {
-                res.Errors.Add("Email yada şifre uyuşmuyor");
+                res.AddError(ErrorMessageCode.EmailOrPassWrong,"Email yada şifre uyuşmuyor");
             }
             return res;
         }
