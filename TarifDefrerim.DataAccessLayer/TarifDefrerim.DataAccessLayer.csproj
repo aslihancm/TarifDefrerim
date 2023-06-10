@@ -68,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TarifDefrerim.Common\TarifDefrerim.Common.csproj">
+      <Project>{a263fb48-b4f7-462e-afcf-9344d0b3b9e8}</Project>
+      <Name>TarifDefrerim.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TarifDefrerim.Entity\TarifDefrerim.Entity.csproj">
       <Project>{b746e31d-5a4c-45ac-a5fc-8c2245f17bec}</Project>
       <Name>TarifDefrerim.Entity</Name>

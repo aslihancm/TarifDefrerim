@@ -9,5 +9,7 @@ namespace TarifDefrerim.Entity.Messages
         UserIsNotActive=151,
         EmailOrPassWrong=152,
         CheckYourEmail=153,
+        UserAlreadyActive = 154,
+        ActivateIdDoesNotExists = 155,
     }
 }

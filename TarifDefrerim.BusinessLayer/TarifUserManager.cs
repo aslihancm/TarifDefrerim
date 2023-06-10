@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using TarifDefrerim.Common.Helpers;
 using TarifDefrerim.DataAccessLayer.EntityFramework;
 using TarifDefrerim.Entity;
 using TarifDefrerim.Entity.Messages;
@@ -47,6 +48,10 @@ namespace TarifDefrerim.BusinessLayer
                 if(dbResult>0)
                 {
                     res.result = repo.Find(x => x.Email == data.Email && x.Username == data.Username);
+                    string siteUrl = ConfigHelper.Get<string>("SiteRootUrl");
+                    string activateUrl = $"{siteUrl}/Home/UserActivate/{res.result.ActivateGuid}";
+                    string body = $"Merhaba{res.result.Username};<br/><br/>Hesabınızı aktifleştirmek için <a href='{activateUrl}' target='_blank'>tıklayınız.</a>";
+                    MailHelper.SendMail(body, res.result.Email, "TarifDefterim Hesap Aktifleştirme");
                 }
             }
             return res;
@@ -72,6 +77,27 @@ namespace TarifDefrerim.BusinessLayer
             return res;
         }
        
+        public BusinessLayerResult<TarifUser> ActivateUser(Guid id)
+        {
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
+            res.result = repo.Find(x => x.ActivateGuid == id);
+            if(res.result!=null)
+            {
+                if(res.result.IsActive)
+                {
+                    res.AddError(ErrorMessageCode.UserAlreadyActive, "Kullanıcı zaten aktif edilmiştir.");
+                    return res;
+                }
+                res.result.IsActive = true;
+                repo.Update(res.result);
+
+            }
+            else
+            {
+                res.AddError(ErrorMessageCode.ActivateIdDoesNotExists, "Aktifleştirilecek kullanıcı bulunamadı.");
+            }
+            return res;
+        }
         
     }
 }

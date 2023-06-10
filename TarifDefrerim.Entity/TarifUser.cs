@@ -15,6 +15,8 @@ namespace TarifDefrerim.Entity
         public string Surname { get; set; }
         [Required,StringLength(25)]
         public string Username { get; set; }
+        //[StringLength(30)]
+        //public string ProfileImageFilename { get; set; }
         [Required, StringLength(25)]
         public string Email { get; set; }
         [Required, StringLength(8)]

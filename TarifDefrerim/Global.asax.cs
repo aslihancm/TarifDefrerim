@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using TarifDefrerim.Common;
+using TarifDefrerim.Init;
 
 namespace TarifDefrerim
 {
@@ -13,6 +15,8 @@ namespace TarifDefrerim
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            App.Common = new WebCommon();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using TarifDefrerim.Common;
 using TarifDefrerim.DataAccessLayer.Abstract;
 using TarifDefrerim.Entity;
 
@@ -58,13 +59,19 @@ namespace TarifDefrerim.DataAccessLayer.EntityFramework
 
                 o.CreatedOn = now;
                 o.ModifiedOn = now;
-                o.ModifiedUsername = "system";
+                o.ModifiedUsername = App.Common.GetUsername();
             }
             return Save();
         }
         public int Update(T obj)
         {
-        
+            MyEntityBase o = obj as MyEntityBase;
+            DateTime now = DateTime.Now;
+
+            o.CreatedOn = now;
+            o.ModifiedOn = now;
+            o.ModifiedUsername= App.Common.GetUsername();
+
             return Save();
         }
         public int Delete(T obj)

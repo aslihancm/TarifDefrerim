@@ -99,9 +99,26 @@ namespace TarifDefrerim.Controllers
         {
             return View();
         }
-        public ActionResult UserActivate(Guid activate_id)
+        public ActionResult UserActivate(Guid id)
         {
-            return View();
+            BusinessLayerResult<TarifUser> res = tarifuserManager.ActivateUser(id);
+            if(res.Errors.Count>0)
+            {
+                TempData["errors"] = res.Errors;
+                return RedirectToAction("UserActivateCancel");
+            }
+            return RedirectToAction("UserActivateOk");
+        }
+
+        public ActionResult UserActivateCancel()
+        {
+            List<ErrorMessageObj> errors = null;
+            if (TempData["errors"]!=null)
+            {
+                errors = TempData["errors"] as List<ErrorMessageObj>;
+            }
+
+            return View(errors);
         }
         public ActionResult Logout()
         {

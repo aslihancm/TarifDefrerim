@@ -14,6 +14,8 @@ namespace TarifDefrerim.Entity
         [Required, StringLength(2000)]
 
         public string Text { get; set; }
+        [StringLength(30)]
+        public string Image { get; set; }
         public bool IsDraft { get; set; }
         public int LikeCount { get; set; }
         public virtual Category Category { get; set; }

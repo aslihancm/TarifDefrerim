@@ -119,11 +119,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EvernoteUser.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Init\WebCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +135,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\RegisterOk.cshtml" />
+    <Content Include="Views\Home\UserActivateOk.cshtml" />
+    <Content Include="Views\Home\UserActivateCancel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -150,6 +152,10 @@
     <ProjectReference Include="..\TarifDefrerim.BusinessLayer\TarifDefrerim.BusinessLayer.csproj">
       <Project>{fb875b16-9263-4e6d-956b-9ebd8c74ce7c}</Project>
       <Name>TarifDefrerim.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TarifDefrerim.Common\TarifDefrerim.Common.csproj">
+      <Project>{a263fb48-b4f7-462e-afcf-9344d0b3b9e8}</Project>
+      <Name>TarifDefrerim.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\TarifDefrerim.Entity\TarifDefrerim.Entity.csproj">
       <Project>{b746e31d-5a4c-45ac-a5fc-8c2245f17bec}</Project>

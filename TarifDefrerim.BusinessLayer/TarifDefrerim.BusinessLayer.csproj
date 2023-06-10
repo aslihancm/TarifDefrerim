@@ -58,6 +58,10 @@
     <Compile Include="TarifUserManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TarifDefrerim.Common\TarifDefrerim.Common.csproj">
+      <Project>{a263fb48-b4f7-462e-afcf-9344d0b3b9e8}</Project>
+      <Name>TarifDefrerim.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TarifDefrerim.DataAccessLayer\TarifDefrerim.DataAccessLayer.csproj">
       <Project>{b0d75dce-7859-4f5f-84b1-f4043d746ad0}</Project>
       <Name>TarifDefrerim.DataAccessLayer</Name>
