@@ -76,7 +76,7 @@ namespace TarifDefrerim.Controllers
         }
         public ActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
