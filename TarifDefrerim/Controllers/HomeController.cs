@@ -125,5 +125,11 @@ namespace TarifDefrerim.Controllers
             Session.Clear();
             return RedirectToAction("Index");
         }
+
+        public ActionResult ShowProfile()
+        {
+            return View();
+        }
+        
     }
 }
