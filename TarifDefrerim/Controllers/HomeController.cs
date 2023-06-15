@@ -130,6 +130,10 @@ namespace TarifDefrerim.Controllers
         {
             return View();
         }
-        
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
     }
 }
