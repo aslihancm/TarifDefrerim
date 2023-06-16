@@ -135,5 +135,11 @@ namespace TarifDefrerim.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult EditProfile(TarifUser model)
+        {
+            return View();
+        }
+
     }
 }
