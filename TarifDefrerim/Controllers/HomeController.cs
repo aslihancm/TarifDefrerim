@@ -141,5 +141,14 @@ namespace TarifDefrerim.Controllers
             return View();
         }
 
+        public ActionResult DeleteProfile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeleteProfile(TarifUser model)
+        {
+            return View();
+        }
     }
 }
