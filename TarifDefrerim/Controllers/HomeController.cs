@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -150,5 +151,7 @@ namespace TarifDefrerim.Controllers
         {
             return View();
         }
+
+       
     }
 }
