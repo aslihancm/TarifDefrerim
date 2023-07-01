@@ -129,6 +129,7 @@ namespace TarifDefrerim.Controllers
 
         public ActionResult ShowProfile()
         {
+            TarifUser currentUser = Session["login"] as TarifUser;
             return View();
         }
         public ActionResult EditProfile()
