@@ -42,6 +42,7 @@ namespace TarifDefrerim.BusinessLayer
                     Email=data.Email,
                     Password=data.Password,
                     ActivateGuid=Guid.NewGuid(),
+                    ProfileImageFilename="user.png",
                     IsActive=false,
                     IsAdmin=false
                 });
@@ -98,6 +99,17 @@ namespace TarifDefrerim.BusinessLayer
             }
             return res;
         }
-        
+
+        public BusinessLayerResult<TarifUser> GetUserById(int id)
+        {
+
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
+            res.result = repo.Find(x => x.Id == id);
+            if (res.result == null)
+            {
+                res.AddError(ErrorMessageCode.UserNotFound, "Kullanıcı bulunamadı.");
+            }
+            return res;
+        }
     }
 }

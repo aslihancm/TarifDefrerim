@@ -1,0 +1,60 @@
+﻿@using TarifDefrerim.Entity.Messages
+@using TarifDefrerim.ViewModels
+@model ErrorViewModel
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<link href="~/Content/css/login-register.css" rel="stylesheet" />
+
+<div class="col-lg-2"></div>
+<div class="col-lg-4" style="margin-bottom:20%">
+    @using (Html.BeginForm())
+    {
+        <section class="login-info">
+            <div class="container">
+                <div class="row main">
+                    <div class="form-header">
+                        <h1 class="text-center ">@Model.Header </h1>
+                    </div>
+                    <div class="main-content">
+
+                        <div class="text-danger">
+                            <h2><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;&nbsp;&nbsp;@Model.Title</h2>
+                            <hr />
+                            <p class="text-justify">
+                                @foreach (ErrorMessageObj item in Model.Items)
+                                {
+                                    @item.Message<br />
+                                }
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+</div>
+
+@{
+    string js = string.Empty;
+    if (Model.IsRedirecting)
+    {
+        js = "setTimeout(function() { window.location='" + Model.RedirectingUrl + "';}," + Model.RedirectingTimeout + ")";
+    }
+}
+
+<script>
+    $(function () {
+        $("footer").parent().hide();
+       @Html.Raw(js);
+    });
+    //$(function () {
+    //    setTimeout(function () {
+    //        window.location="/Home/Index"
+    //    },5000)
+    //})
+</script>
+

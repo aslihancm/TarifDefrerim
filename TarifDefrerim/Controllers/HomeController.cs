@@ -9,7 +9,7 @@ using TarifDefrerim.BusinessLayer;
 using TarifDefrerim.Entity;
 using TarifDefrerim.Entity.Messages;
 using TarifDefrerim.Entity.ValueObjects;
-
+using TarifDefrerim.ViewModels;
 
 namespace TarifDefrerim.Controllers
 {
@@ -92,35 +92,46 @@ namespace TarifDefrerim.Controllers
                     res.Errors.ForEach(x => ModelState.AddModelError("", x.Message));
                     return View(model);
                 }
-                return View("RegisterOk");
+
+                OkViewModel notifymodel = new OkViewModel()
+                {
+
+                    Title = "Kayıt Başarılı",
+                    RedirectingUrl = "/Home/Login"
+                };
+                notifymodel.Items.Add("Lütfen eposta adrsinize gönderilen aktivasyon linkine tıklayarak hesabınızı aktifleştiriniz. Hesabınızı aktif etmeden note yazamaz, yorum yapamazsınız.");
+
+                return View("Ok", notifymodel);
             }
+
+           
             return View(model);
         }
-        public ActionResult RegisterOk()
-        {
-            return View();
-        }
+      
         public ActionResult UserActivate(Guid id)
         {
             BusinessLayerResult<TarifUser> res = tarifuserManager.ActivateUser(id);
             if(res.Errors.Count>0)
             {
-                TempData["errors"] = res.Errors;
-                return RedirectToAction("UserActivateCancel");
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    Title = "Geçersiz işlem",
+                    Items = res.Errors
+                };
+                return View("Error", errorNotifyObj);
             }
-            return RedirectToAction("UserActivateOk");
-        }
-
-        public ActionResult UserActivateCancel()
-        {
-            List<ErrorMessageObj> errors = null;
-            if (TempData["errors"]!=null)
+            OkViewModel okNotifyObj = new OkViewModel()
             {
-                errors = TempData["errors"] as List<ErrorMessageObj>;
-            }
+                Title = "Hesap Aktifleştirildi",
+                RedirectingUrl = "/Home/Login"
+            };
 
-            return View(errors);
+            okNotifyObj.Items.Add("Hesabınız aktifleştirildi. Artık note yazabilir ve beğeni yapabilirsiniz.");
+
+            return View("Ok", okNotifyObj);
         }
+
+       
         public ActionResult Logout()
         {
             Session.Clear();
@@ -130,11 +141,33 @@ namespace TarifDefrerim.Controllers
         public ActionResult ShowProfile()
         {
             TarifUser currentUser = Session["login"] as TarifUser;
-            return View();
+            BusinessLayerResult<TarifUser> res = tarifuserManager.GetUserById(currentUser.Id);
+            if(res.Errors.Count>0)
+            {
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    Title = "Hata Oluştu",
+                    Items = res.Errors
+                };
+            }
+            return View(res.result);
         }
         public ActionResult EditProfile()
         {
-            return View();
+
+            TarifUser currentUser = Session["login"] as TarifUser;
+            BusinessLayerResult<TarifUser> res = tarifuserManager.GetUserById(currentUser.Id);
+            if(res.Errors.Count>0)
+                {
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    Title = "Hata Oluştu",
+                    Items =res.Errors
+                };
+                return View("Error", errorNotifyObj);
+            }
+
+            return View(res.result);
         }
 
         [HttpPost]
