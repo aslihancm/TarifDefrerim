@@ -171,8 +171,17 @@ namespace TarifDefrerim.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditProfile(TarifUser model)
+        public ActionResult EditProfile(TarifUser model, HttpPostedFileBase ProfileImage)
         {
+            if (ProfileImage != null &&
+                ProfileImage.ContentType=="image/jpeg" ||
+                ProfileImage.ContentType=="image/jpg" ||
+                ProfileImage.ContentType=="image/png")
+            {
+                string filename = $"user_{model.Id}.{ProfileImage.ContentType.Split('/')[1]}";
+                ProfileImage.SaveAs(Server.MapPath($"~/Content/images/{filename}"));
+                model.ProfileImageFilename = filename;
+            }
             return View();
         }
 
