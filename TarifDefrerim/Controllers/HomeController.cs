@@ -182,6 +182,18 @@ namespace TarifDefrerim.Controllers
                 ProfileImage.SaveAs(Server.MapPath($"~/Content/images/{filename}"));
                 model.ProfileImageFilename = filename;
             }
+
+            BusinessLayerResult<TarifUser> res = TarifUserManager.UpdateProfile(model);
+            if(res.Errors.Count>0)
+            {
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    Title = "Profil Güncellenemedi",
+                    Items = res.Errors,
+                    RedirectingUrl = "Home/EditProfile"
+                };
+                return View("Error", errorNotifyObj);
+            }
             return View();
         }
 
