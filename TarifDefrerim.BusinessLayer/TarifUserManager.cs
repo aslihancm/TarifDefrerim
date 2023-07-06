@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -110,6 +110,13 @@ namespace TarifDefrerim.BusinessLayer
                 res.AddError(ErrorMessageCode.UserNotFound, "Kullanıcı bulunamadı.");
             }
             return res;
+        }
+
+        public static BusinessLayerResult<TarifUser> UpdateProfile(TarifUser model)
+        {
+            TarifUserManager db_user = repo.Find(x => x.Id == model.Id && (x.Username == model.Username || x.Email == model.Email));
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
+
         }
     }
 }
