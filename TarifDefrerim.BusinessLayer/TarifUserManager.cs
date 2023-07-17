@@ -117,6 +117,14 @@ namespace TarifDefrerim.BusinessLayer
             TarifUserManager db_user = repo.Find(x => x.Id == model.Id && (x.Username == model.Username || x.Email == model.Email));
             BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
 
+            if(db_user!= null && db_user.Id==model.Id)
+            {
+                if(db_user.UserName==model.Username)
+                {
+                    res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kullanıcı adı kayıtlı");
+                }
+            }
+
         }
     }
 }
