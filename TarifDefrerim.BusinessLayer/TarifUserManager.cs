@@ -112,19 +112,47 @@ namespace TarifDefrerim.BusinessLayer
             return res;
         }
 
-        public static BusinessLayerResult<TarifUser> UpdateProfile(TarifUser model)
+        public BusinessLayerResult<TarifUser> UpdateProfile(TarifUser model)
+
         {
-            TarifUserManager db_user = repo.Find(x => x.Id == model.Id && (x.Username == model.Username || x.Email == model.Email));
+            TarifUser db_user = repo.Find(x => x.Id == model.Id && (x.Username == model.Username || x.Email == model.Email));
             BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
 
-            if(db_user!= null && db_user.Id==model.Id)
+
+
+            if (db_user != null && db_user.Id != model.Id)
             {
-                if(db_user.UserName==model.Username)
-                {
+                if (db_user.Username == model.Username)
                     res.AddError(ErrorMessageCode.UsernameAlreadyExists, "Kullanıcı adı kayıtlı");
-                }
+
+                if (db_user.Email == model.Email)
+                    res.AddError(ErrorMessageCode.EmailAlreadyExists, "Email adresi kayıtlı");
+
+                return res;
             }
 
+            res.result = repo.Find(x => x.Id == model.Id);
+            res.result.Email = model.Email;
+            res.result.Name = model.Name;
+            res.result.Surname = model.Surname;
+            res.result.Username = model.Username;
+            res.result.Password = model.Password;
+
+            if (string.IsNullOrEmpty(model.ProfileImageFilename) == false)
+            {
+                res.result.ProfileImageFilename = model.ProfileImageFilename;
+            }
+
+            if (repo.Update(res.result) == 0)
+            {
+                res.AddError(ErrorMessageCode.ProfileCouldNotUpdated, "Profil Güncellenemedi");
+            }
+
+            return res;
         }
+
     }
-}
+
+
+    }
+

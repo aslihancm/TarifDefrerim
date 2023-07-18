@@ -183,7 +183,7 @@ namespace TarifDefrerim.Controllers
                 model.ProfileImageFilename = filename;
             }
 
-            BusinessLayerResult<TarifUser> res = TarifUserManager.UpdateProfile(model);
+            BusinessLayerResult<TarifUser> res = tarifuserManager.UpdateProfile(model);
             if(res.Errors.Count>0)
             {
                 ErrorViewModel errorNotifyObj = new ErrorViewModel()

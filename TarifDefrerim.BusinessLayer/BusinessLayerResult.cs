@@ -23,9 +23,7 @@ namespace TarifDefrerim.BusinessLayer
             Errors.Add(new ErrorMessageObj(){ Code=code,Message=message});
         }
 
-        internal void AddError(object userNotFound, string v)
-        {
-            throw new NotImplementedException();
-        }
+      
+
     }
 }
