@@ -222,5 +222,5 @@ namespace TarifDefrerim.Controllers
         {
             return View();
         }
-        }
+    }
 }
