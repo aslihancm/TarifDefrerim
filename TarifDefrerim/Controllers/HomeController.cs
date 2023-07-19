@@ -196,14 +196,31 @@ namespace TarifDefrerim.Controllers
             }
             return View();
         }
-
         public ActionResult DeleteProfile()
+        {
+            TarifUser currentuser = Session["login"] as TarifUser;
+
+            BusinessLayerResult<TarifUser> res = tarifuserManager.RemoveUserById(currentuser.Id);
+
+            if (res.Errors.Count > 0)
+            {
+                ErrorViewModel errorNotifyObj = new ErrorViewModel()
+                {
+                    RedirectingUrl = "/Home/ShowProfile",
+                    Title = "Profil Silinemedi",
+                    Items = res.Errors
+                };
+
+                return View("Error", errorNotifyObj);
+            }
+
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult DeleteProfile(TarifUser model)
         {
             return View();
         }
-       
-        
-
-       
-    }
+        }
 }

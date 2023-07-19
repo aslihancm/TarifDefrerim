@@ -151,6 +151,28 @@ namespace TarifDefrerim.BusinessLayer
             return res;
         }
 
+        public BusinessLayerResult<TarifUser> RemoveUserById(int Id)
+        {
+            BusinessLayerResult<TarifUser> res = new BusinessLayerResult<TarifUser>();
+
+            TarifUser user = repo.Find(x => x.Id == Id);
+
+            if (user != null)
+            {
+                if (repo.Delete(user) == 0)
+                {
+                    res.AddError(ErrorMessageCode.UserCouldNotRemove, "Kullanıcı silinemedi");
+                    return res;
+                }
+            }
+
+            else
+            {
+                res.AddError(ErrorMessageCode.UserCouldNotFind, "Kullanıcı bulunamadi");
+            }
+
+            return res;
+        }
     }
 
 
